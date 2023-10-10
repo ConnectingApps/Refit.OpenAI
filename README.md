@@ -1,5 +1,5 @@
 # Refit.OpenAI
-ConnectingApps.Refit.OpenAI is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package for calling OpenAI (but not made by the OpenAI company). Using this package, you can call the OpenAI API while being in full control of resilience en logging. This is because Refit is used so you can be fully control the `HttpClient`, including the logging, returned HTTP status codes etc.
+**ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package for calling OpenAI (but not made by the OpenAI company). Using this package, you can call the OpenAI API while being in full control of resilience en logging. This is because Refit is used so you can be fully control the `HttpClient`, including the logging, returned HTTP status codes etc.
 
 For example, assuming you want to do this HTTP call:
 
