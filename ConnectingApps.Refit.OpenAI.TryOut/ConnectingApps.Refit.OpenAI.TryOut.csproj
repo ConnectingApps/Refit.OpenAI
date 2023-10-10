@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConnectingApps.Refit.OpenAI\ConnectingApps.Refit.OpenAI.csproj" />
+    <PackageReference Include="ConnectingApps.Refit.OpenAI" Version="1.0.2-preview" />
+    <PackageReference Include="Refit" Version="7.0.0" />
   </ItemGroup>
+
 
 </Project>
