@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Refit.OpenAI
+﻿namespace ConnectingApps.Refit.OpenAI
 {
     public class Class1
     {
