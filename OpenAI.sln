@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.IntegrationTest", "ConnectingApps.Refit.OpenAI.IntegrationTest\ConnectingApps.Refit.OpenAI.IntegrationTest.csproj", "{624EF671-9FD9-4F24-958F-8177681DB514}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.TryOut", "ConnectingApps.Refit.OpenAI.TryOut\ConnectingApps.Refit.OpenAI.TryOut.csproj", "{ADEF16D5-332D-4C24-9C5D-D4446A9E4BCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{624EF671-9FD9-4F24-958F-8177681DB514}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{624EF671-9FD9-4F24-958F-8177681DB514}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{624EF671-9FD9-4F24-958F-8177681DB514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEF16D5-332D-4C24-9C5D-D4446A9E4BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEF16D5-332D-4C24-9C5D-D4446A9E4BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEF16D5-332D-4C24-9C5D-D4446A9E4BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEF16D5-332D-4C24-9C5D-D4446A9E4BCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
