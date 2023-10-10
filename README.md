@@ -63,3 +63,19 @@ You can reuse your existing Refit experience to:
 2. Trace the statuscode of your REST Calls
 3. Code in C# like it is a raw request
 4. Benefit from the highly performant (de)serialization using [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/#readme-body-tab)
+
+
+# Legal Statement
+This Software incorporates certain components that are not owned by Connecting Apps. These external components, including but not limited to software libraries, plugins, modules, or any other type of software components (collectively, “External Components”), are the property of their respective owners and are used within the Software either under license or as allowed by applicable law.
+
+Each of these External Components is subject to its own applicable license terms and conditions, which may be found in the documentation accompanying the External Components, in the External Components’ respective official repositories, or through other appropriate channels provided by the respective owners or licensors of the External Components. Users of the Software are responsible for complying with those terms and conditions, as well as with any and all other applicable laws and regulations related to the use of the External Components.
+
+The Company disclaims any proprietary interests in the intellectual property of the External Components. The inclusion of these External Components within the Software does not imply any endorsement, affiliation, or sponsorship between the Company and the respective owners or licensors of the External Components.
+
+## Limitation of Liability
+To the maximum extent permitted by applicable law, the Company shall not be liable for any damages arising out of or in connection with the use of the External Components incorporated within the Software. Users agree to hold harmless and indemnify the Company against any claims or liabilities arising out of the use, reproduction, or distribution of the External Components.
+
+## Miscellaneous
+This Legal Statement may be updated from time to time at the sole discretion of the Company. Users are encouraged to review this Statement periodically to stay informed of any changes.
+
+For any questions regarding this Legal Statement, or to obtain more information about the External Components incorporated within the Software, please contact [Your Company’s Contact Information].
