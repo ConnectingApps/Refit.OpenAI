@@ -1,4 +1,4 @@
-﻿namespace ConnectingApps.Refit.OpenAI.Completions.Request
+﻿namespace ConnectingApps.Refit.OpenAI.Completions
 {
     public class Message
     {

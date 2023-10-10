@@ -26,7 +26,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
             {
                 Model = "gpt-3.5-turbo",
                 Temperature = 0.7,
-                Messages = new List<Completions.Request.Message>
+                Messages = new List<Message>
                 {
                     new()
                     {
