@@ -59,6 +59,43 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
             actual.Should().BeEquivalentTo(expected);
         }
 
+        [Fact]
+        public async Task CapitalOfFranceWithTopP()
+        {
+            await _completionCaller(new ChatRequest
+            {
+                Model = "gpt-3.5-turbo",
+                TopP = 1,
+                Messages = new List<Message>
+                {
+                    new()
+                    {
+                        Role = "user",
+                        Content = "What is the capital of the France?",
+                    }
+                }
+            });
+
+            string expectedRequest = """
+                                     {
+                                         "model": "gpt-3.5-turbo",
+                                         "messages": [
+                                             {
+                                                 "role": "user",
+                                                 "content": "What is the capital of the France?"
+                                             }
+                                         ],
+                                         "top_p": 1
+                                     }
+                                     """;
+
+            var actualRequest = _server.LogEntries.First().RequestMessage.Body!;
+            _server.LogEntries.Should().Contain(x => x.RequestMessage.Path == "/v1/chat/completions");
+            var actual = JToken.Parse(actualRequest);
+            var expected = JToken.Parse(expectedRequest);
+            actual.Should().BeEquivalentTo(expected);
+        }
+
 
         public void Dispose()
         {

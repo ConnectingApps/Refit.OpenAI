@@ -36,7 +36,28 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 }
             });
             (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
-            response.Content!.Choices.First().Message.Content.Should().Contain("Paris");
+            response.Content!.Choices!.First().Message!.Content.Should().Contain("Paris");
+        }
+
+
+        [Fact]
+        public async Task CapitalOfFranceTopP()
+        {
+            var response = await CompletionCaller(new ChatRequest
+            {
+                Model = "gpt-3.5-turbo",
+                TopP = 1,
+                Messages = new List<Message>
+                {
+                    new()
+                    {
+                        Role = "user",
+                        Content = "What is the capital of the France?",
+                    }
+                }
+            });
+            (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
+            response.Content!.Choices!.First().Message!.Content.Should().Contain("Paris");
         }
     }
 }
