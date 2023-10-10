@@ -4,10 +4,29 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
+    <Nullable>enable</Nullable>
+    <Title>Refit.OpenApi</Title>
+    <Company>Connecting Apps</Company>
+    <Description>A Refit client package for OpenAI</Description>
+    <Copyright>© 2023 Connecting Apps. All rights reserved. The material contained in Connecting Apps products, including, but not limited to, software, documentation, text, images, graphics, logos, and design, is owned by Connecting Apps or its licensors and is protected by international copyright laws. Unauthorized reproduction, distribution, display, performance, modification, or use of these materials is strictly prohibited without the express written consent of Connecting Apps. Connecting Apps, the Connecting Apps logo, and all other trademarks, service marks, graphics, and logos used in connection with Connecting Apps products are trademarks or registered trademarks of Connecting Apps or Connecting Apps licensors. Other trademarks, service marks, graphics, and logos used in connection with the products may be the trademarks of their respective owners. You are granted no right or license with respect to any of the aforesaid trademarks, service marks, graphics, or logos. No part of Connecting Apps products may be copied, reproduced, distributed, republished, downloaded, displayed, posted, or transmitted in any form or by any means, including but not limited to electronic, mechanical, photocopying, recording, or other means, without the prior express written permission of Connecting Apps and the appropriate copyright owner. Warning: The unauthorized reproduction or distribution of this copyrighted work is illegal and may result in criminal copyright infringement, which is punishable by fine and imprisonment.</Copyright>
+    <PackageProjectUrl>https://github.com/ConnectingApps/Refit.OpenAI</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ConnectingApps/Refit.OpenAI</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Refit" Version="7.0.0" />
   </ItemGroup>
+
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
 
 </Project>
