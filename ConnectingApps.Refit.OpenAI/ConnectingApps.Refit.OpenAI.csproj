@@ -15,11 +15,11 @@
     <PackageReleaseNotes>Initial version</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Icon.png</PackageIcon>
-    <Version>1.0.1-preview</Version>
+    <Version>1.0.2-preview</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Refit" Version="7.0.0" />
+    <PackageReference Include="Refit" Version="[6.0.1, 8.2.0]" />
   </ItemGroup>
 
 
