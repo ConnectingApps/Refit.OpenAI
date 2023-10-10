@@ -45,7 +45,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                            "messages": [
                                {
                                    "role": "user",
-                                   "content": "How much is that in Kelvin?"
+                                   "content": "What is the capital of the France?"
                                }
                            ],
                            "temperature": 0.7
