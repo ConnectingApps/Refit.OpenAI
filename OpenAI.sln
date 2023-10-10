@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refit.OpenAI", "Refit.OpenAI\Refit.OpenAI.csproj", "{1EB9EC77-D85A-446D-BD09-8C1A6245A267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI", "ConnectingApps.Refit.OpenAI\ConnectingApps.Refit.OpenAI.csproj", "{213FCB46-B0CB-4E25-A056-46B348ECE410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1EB9EC77-D85A-446D-BD09-8C1A6245A267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EB9EC77-D85A-446D-BD09-8C1A6245A267}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EB9EC77-D85A-446D-BD09-8C1A6245A267}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EB9EC77-D85A-446D-BD09-8C1A6245A267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213FCB46-B0CB-4E25-A056-46B348ECE410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213FCB46-B0CB-4E25-A056-46B348ECE410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213FCB46-B0CB-4E25-A056-46B348ECE410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213FCB46-B0CB-4E25-A056-46B348ECE410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
