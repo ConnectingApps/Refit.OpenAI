@@ -36,6 +36,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 }
             });
             (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
+            response.Content!.Choices.First().Message.Content.Should().Contain("Paris");
         }
     }
 }
