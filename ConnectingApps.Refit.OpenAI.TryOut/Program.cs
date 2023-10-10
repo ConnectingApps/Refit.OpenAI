@@ -4,7 +4,10 @@ using ConnectingApps.Refit.OpenAI.Completions.Request;
 using Refit;
 
 var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
-var completionApi = RestService.For<ICompletion>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+var completionApi = RestService.For<ICompletion>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
 
 var response = await completionApi.CreateCompletionAsync(new ChatRequest
     {
