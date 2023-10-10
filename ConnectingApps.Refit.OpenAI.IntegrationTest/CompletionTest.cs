@@ -20,7 +20,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
         }
 
         [Fact]
-        public async Task Test1()
+        public async Task CapitalOfFrance()
         {
             var response = await CompletionCaller(new ChatRequest
             {
