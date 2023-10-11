@@ -30,4 +30,10 @@
     <ProjectReference Include="..\ConnectingApps.Refit.OpenAI\ConnectingApps.Refit.OpenAI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="otter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
