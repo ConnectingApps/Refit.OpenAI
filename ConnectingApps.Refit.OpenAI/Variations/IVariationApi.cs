@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ConnectingApps.Refit.OpenAI.Variations.Response;
 using Refit;
 
 namespace ConnectingApps.Refit.OpenAI.Variations
@@ -15,14 +15,4 @@ namespace ConnectingApps.Refit.OpenAI.Variations
             [AliasAs("size")] string size);
     }
 
-    public class VariationResponse
-    {
-        public long Created { get; set; }
-        public List<Variation> Data { get; set; }
-    }
-
-    public class Variation
-    {
-        public string Url { get; set; }
-    }
 }
