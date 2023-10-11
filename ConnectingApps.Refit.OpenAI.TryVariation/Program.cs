@@ -7,8 +7,6 @@ var authorizationHeader = $"Bearer {apiKey}";
 await using (var image = new FileStream("otter.png", FileMode.Open, FileAccess.Read))
 {
     var openAiApi = RestService.For<IVariation>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
-    var exist = File.Exists("otter.png");
-    Console.WriteLine($"File exists: {exist}");
     var streamPart = new StreamPart(image, "otter.png");
     var response = await openAiApi.GetImageVariations(authorizationHeader, streamPart, 2, "1024x1024");
     Console.WriteLine($"Returned response status code {response.StatusCode}");
