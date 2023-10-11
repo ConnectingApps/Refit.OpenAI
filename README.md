@@ -14,7 +14,7 @@ Authorization: Bearer {{key}}
     "messages": [
         {
             "role": "user",
-            "content": "What is the average temperature in New York city in January?"
+            "content": "What is the capital of the France?"
         }
     ],
     "temperature": 0.7
