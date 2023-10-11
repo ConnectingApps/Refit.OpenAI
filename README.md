@@ -1,6 +1,8 @@
 # Refit.OpenAI
 **ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package for calling OpenAI (but not made by the OpenAI company). Using this package, you can call the OpenAI API while being in full control of resilience and logging. This is because Refit is used so you can be fully control the `HttpClient`, including the logging, returned HTTP status codes etc.
 
+## Completions
+
 For example, assuming you want to do this HTTP call:
 
 ```http
@@ -58,6 +60,51 @@ Returned response status code OK
 The capital of France is Paris.
 ```
 
+## Variations
+
+In addition to the completions functionality in OpenAI, this NuGet package also support image variations.
+
+Such an image variation can be achieved with this curl call.
+
+```bash
+curl https://api.openai.com/v1/images/variations \
+  -H "Authorization: Bearer YOURKEY" \
+  -F image="@otter.png" \
+  -F n=2 \
+  -F size="1024x1024"
+```
+
+This how to run such a call in C#:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Variations;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var authorizationHeader = $"Bearer {apiKey}";
+await using (var image = new FileStream("otter.png", FileMode.Open, FileAccess.Read))
+{
+    var openAiApi = RestService.For<IVariation>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+    var streamPart = new StreamPart(image, "otter.png");
+    var response = await openAiApi.GetImageVariations(authorizationHeader, streamPart, 2, "1024x1024");
+    Console.WriteLine($"Returned response status code {response.StatusCode}");
+    Console.WriteLine($"Number of new items created {response.Content!.Data.Count}");
+    Console.WriteLine($"First item url {response.Content!.Data.First().Url}");
+    Console.WriteLine($"Second item url {response.Content!.Data.Last().Url}");
+}
+```
+
+giving the following output:
+
+```cmd
+Returned response status code OK
+Number of new items created 2
+First item url https://oaidalleapiprodscus.blob.core.windows.net/private/org-Rw9eshPWEaNfb.....[REST OF IMAGE URL 1]
+Second item url https://oaidalleapiprodscus.blob.core.windows.net/private/org-Rw9eshPWEaQ.....[REST OF IMAGE URL 2]
+```
+
+## Why Refit
 You can reuse your existing Refit experience to:
 1. Implement resilience in case of accidental failures
 2. Trace the statuscode of your REST Calls
