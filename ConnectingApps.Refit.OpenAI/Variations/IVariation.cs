@@ -4,7 +4,7 @@ using Refit;
 
 namespace ConnectingApps.Refit.OpenAI.Variations
 {
-    public interface IVariationApi
+    public interface IVariation
     {
         [Multipart]
         [Post("/v1/images/variations")]

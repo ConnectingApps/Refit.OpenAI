@@ -6,7 +6,7 @@ var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
 var authorizationHeader = $"Bearer {apiKey}";
 await using (var image = new FileStream("otter.png", FileMode.Open, FileAccess.Read))
 {
-    var openAiApi = RestService.For<IVariationApi>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+    var openAiApi = RestService.For<IVariation>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
     var exist = File.Exists("otter.png");
     Console.WriteLine($"File exists: {exist}");
     var streamPart = new StreamPart(image, "otter.png");
