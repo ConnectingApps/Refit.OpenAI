@@ -10,14 +10,14 @@ var image = new FileStream("otter.png", FileMode.Open, FileAccess.Read);
 
 var openAiApi = RestService.For<IVariationApi>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
 
+var exist = File.Exists("otter.png");
+Console.WriteLine($"File exists: {exist}");
+var streamPart = new StreamPart(image, "otter.png");
+
 try
 {
-    var response = await openAiApi.GenerateImageVariations(authorizationHeader, new GenerateImageVariationsRequest()
-    {
-        N = 2,
-        Size = "1024x1024",
-        Image = image
-    });
+    var response = await openAiApi.GetImageVariations(authorizationHeader, streamPart, 2, "1024x1024");
+
     Console.WriteLine($"Returned response status code {response.StatusCode}");
 }
 catch (Exception e)

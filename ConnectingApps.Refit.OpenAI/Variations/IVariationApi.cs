@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Refit;
 
@@ -7,28 +6,23 @@ namespace ConnectingApps.Refit.OpenAI.Variations
 {
     public interface IVariationApi
     {
+        [Multipart]
         [Post("/v1/images/variations")]
-        Task<ApiResponse<GenerateImageVariationsResponse>> GenerateImageVariations(
-            [Header("Authorization")] string authorizationHeader,
-            [Body] GenerateImageVariationsRequest request);
+        Task<ApiResponse<VariationResponse>> GetImageVariations(
+            [Header("Authorization")] string authorization,
+            [AliasAs("image")] StreamPart image,
+            [AliasAs("n")] int n,
+            [AliasAs("size")] string size);
     }
 
-    public class GenerateImageVariationsRequest
-    {
-        public Stream Image { get; set; }
-        public int N { get; set; }
-        public string Size { get; set; }
-    }
-
-    public class GenerateImageVariationsResponse
+    public class VariationResponse
     {
         public long Created { get; set; }
-        public List<GenerateImageVariationResponse> Data { get; set; }
+        public List<Variation> Data { get; set; }
     }
 
-    public class GenerateImageVariationResponse
+    public class Variation
     {
         public string Url { get; set; }
     }
-
 }
