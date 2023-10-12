@@ -104,6 +104,44 @@ First item url https://oaidalleapiprodscus.blob.core.windows.net/private/org-Rw9
 Second item url https://oaidalleapiprodscus.blob.core.windows.net/private/org-Rw9eshPWEaQ.....[REST OF IMAGE URL 2]
 ```
 
+## Audio Translations
+
+OpenAI API does support audio translations and so this this NuGet package. Here is an example of a curl call to request an audio translation from Dutch to English:
+
+```bash
+curl https://api.openai.com/v1/audio/translations \
+  -H "Authorization: Bearer YOURKEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F file="@HalloWereld.mp3" \
+  -F model="whisper-1"
+```
+
+This is how to code this in C#:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.AudioTranslation;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var authorizationHeader = $"Bearer {apiKey}";
+await using (var recording = new FileStream("HalloWereld.mp3", FileMode.Open, FileAccess.Read))
+{
+    var openAiApi = RestService.For<IAudioTranslation>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+    var streamPart = new StreamPart(recording, "HalloWereld.mp3");
+    var response = await openAiApi.GetAudioTranslation(authorizationHeader, streamPart, "whisper-1");
+    Console.WriteLine($"Returned response status code {response.StatusCode}");
+    Console.WriteLine($"Translated text {response.Content!.Text}");
+}
+```
+
+giving the following output:
+
+```cmd
+Returned response status code OK
+Translated text Hello world, the world is mine.
+```
+
 ## Why Refit
 You can reuse your existing Refit experience to:
 1. Implement resilience in case of accidental failures
