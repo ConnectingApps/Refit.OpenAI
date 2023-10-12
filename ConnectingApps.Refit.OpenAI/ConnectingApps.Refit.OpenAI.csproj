@@ -15,7 +15,7 @@
     <PackageReleaseNotes>Initial version</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Icon.png</PackageIcon>
-    <Version>1.1.2</Version>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
