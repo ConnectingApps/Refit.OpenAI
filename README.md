@@ -125,4 +125,4 @@ To the maximum extent permitted by applicable law, the Company shall not be liab
 ## Miscellaneous
 This Legal Statement may be updated from time to time at the sole discretion of the Company. Users are encouraged to review this Statement periodically to stay informed of any changes.
 
-For any questions regarding this Legal Statement, or to obtain more information about the External Components incorporated within the Software, please contact [Your Company’s Contact Information].
+For any questions regarding this Legal Statement, or to obtain more information about the External Components incorporated within the Software, please contact us by clicking "Contact owners" on the NuGet page.
