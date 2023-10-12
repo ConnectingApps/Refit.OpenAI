@@ -31,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="HalloWereld.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="otter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
