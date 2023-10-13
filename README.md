@@ -1,6 +1,22 @@
 # Refit.OpenAI
 **ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package for calling OpenAI (but not made by the OpenAI company). Using this package, you can call the OpenAI API while being in full control of resilience and logging. This is because Refit is used so you can be fully control the `HttpClient`, including the logging, returned HTTP status codes etc.
 
+
+# Table of Contents
+- [Refit.OpenAI](#refitopenai)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+  - [Completions](#completions)
+  - [Variations](#variations)
+  - [Audio Translations](#audio-translations)
+  - [Audio Transcriptions](#audio-transcriptions)
+- [Why Refit](#why-refit)
+- [Legal Statement](#legal-statement)
+  - [Limitation of Liability](#limitation-of-liability)
+  - [Miscellaneous](#miscellaneous)
+
+# Features
+
 ## Completions
 
 For example, assuming you want to do this HTTP call:
@@ -142,7 +158,46 @@ Returned response status code OK
 Translated text Hello world, the world is mine.
 ```
 
-## Why Refit
+## Audio Transcriptions
+
+OpenAI API does support audio transcriptions and so this this NuGet package. You'll get the actual text, even when it is not in English.
+
+Here is an example of a curl call to request an audio transcription of a recording in Dutch:
+
+```bash
+curl https://api.openai.com/v1/audio/transcriptions \
+  -H "Authorization: Bearer YOURKEY" \
+  -H "Content-Type: multipart/form-data" \
+  -F file="@HalloWereld.mp3" \
+  -F model="whisper-1"
+```
+
+This is how to code this in C#:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Transcriptions;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var authorizationHeader = $"Bearer {apiKey}";
+await using (var recording = new FileStream("HalloWereld.mp3", FileMode.Open, FileAccess.Read))
+{
+    var openAiApi = RestService.For<ITranscription>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+    var streamPart = new StreamPart(recording, "HalloWereld.mp3");
+    var response = await openAiApi.GetAudioTranscription(authorizationHeader, streamPart, "whisper-1");
+    Console.WriteLine($"Returned response status code {response.StatusCode}");
+    Console.WriteLine($"Actual text {response.Content!.Text}");
+}
+```
+giving the following output:
+
+```cmd
+Returned response status code OK
+Actual text Hallo wereld de wereld is van mij
+```
+
+# Why Refit
 You can reuse your existing Refit experience to:
 1. Implement resilience in case of accidental failures
 2. Trace the statuscode of your REST Calls
