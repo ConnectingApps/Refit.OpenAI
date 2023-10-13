@@ -8,7 +8,7 @@ namespace ConnectingApps.Refit.OpenAI.Moderations
     public interface IModeration
     {
         [Post("/v1/moderations")]
-        Task<ApiResponse<ModerationsResponse>> CreateCompletionAsync([Body] ModerationRequest chatRequest,
+        Task<ApiResponse<ModerationsResponse>> CreateModerationAsync([Body] ModerationRequest chatRequest,
             [Header("Authorization")] string authorization);
     }
 }
