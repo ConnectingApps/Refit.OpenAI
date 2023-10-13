@@ -1,0 +1,14 @@
+﻿using Refit;
+using System.Threading.Tasks;
+using ConnectingApps.Refit.OpenAI.Moderations.Response;
+using ConnectingApps.Refit.OpenAI.Moderations.Request;
+
+namespace ConnectingApps.Refit.OpenAI.Moderations
+{
+    public interface IModeration
+    {
+        [Post("/v1/moderations")]
+        Task<ApiResponse<ModerationsResponse>> CreateCompletionAsync([Body] ModerationRequest chatRequest,
+            [Header("Authorization")] string authorization);
+    }
+}
