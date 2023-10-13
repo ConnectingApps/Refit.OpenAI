@@ -60,8 +60,8 @@ namespace ConnectingApps.Refit.OpenAI.Test
             response.Results.Length.Should().Be(1);
             response.Results[0].Flagged.Should().BeFalse();
             response.Results[0].Categories.Should().NotBeNull();
-            response.Results[0].CategoryScores.Harassmentthreatening.Should().BeGreaterThan(0.01341);
-            response.Results[0].CategoryScores.Selfharmintent.Should().BeGreaterThan(0.00008180);
+            response.Results[0].CategoryScores.HarassmentThreatening.Should().BeGreaterThan(0.01341);
+            response.Results[0].CategoryScores.SelfHarmIntent.Should().BeGreaterThan(0.00008180);
         }
     }
 }
