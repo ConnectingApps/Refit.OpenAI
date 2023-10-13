@@ -10,6 +10,7 @@
   - [Variations](#variations)
   - [Audio Translations](#audio-translations)
   - [Audio Transcriptions](#audio-transcriptions)
+  - [Moderations](#moderations)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
   - [Limitation of Liability](#limitation-of-liability)
@@ -196,6 +197,55 @@ giving the following output:
 Returned response status code OK
 Actual text Hallo wereld de wereld is van mij
 ```
+
+## Moderations
+A common problem on public websites is that they need to be moderated but the organizations that are supposed to do that are understaffed. For such problems, the OpenAI API can help which can be easily called through this NuGet package.
+
+Assume you want to do this request:
+
+```http
+POST https://api.openai.com/v1/moderations
+User-Agent: vscode-restclient
+Content-Type: application/json
+Authorization: Bearer YOURKEY
+```
+```json
+{
+    "input": "I want to hit my dog."
+}
+```
+
+You can run this using the following C# code:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Moderations;
+using ConnectingApps.Refit.OpenAI.Moderations.Request;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var moderationApi = RestService.For<IModeration>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+
+var response = await moderationApi.CreateModerationAsync(new ModerationRequest
+    {
+        Input = "I want to hit my dog."
+    }, $"Bearer {apiKey}");
+
+Console.WriteLine($"Returned response status code {response.StatusCode}");
+Console.WriteLine($"Check if this is violent {response.Content!.Results[0].Categories.Violence}");
+```
+
+giving this output:
+
+```txt
+Returned response status code OK
+Check if this is violent True
+```
+
+In this way, you can check for inappropriate comments given by users of your website.
 
 # Why Refit
 You can reuse your existing Refit experience to:
