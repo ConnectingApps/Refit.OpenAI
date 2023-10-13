@@ -7,6 +7,7 @@ namespace ConnectingApps.Refit.OpenAI.Moderations.Response
         public bool Sexual { get; set; }
         public bool Hate { get; set; }
         public bool Harassment { get; set; }
+        [JsonPropertyName("self-harm")]
         public bool SelfHarm { get; set; }
         [JsonPropertyName("sexual/minors")]
         public bool SexualMinors { get; set; }
