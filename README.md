@@ -1,6 +1,5 @@
 # Refit.OpenAI
-**ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package for calling OpenAI (but not made by the OpenAI company). Using this package, you can call the OpenAI API while being in full control of resilience and logging. This is because Refit is used so you can be fully control the `HttpClient`, including the logging, returned HTTP status codes etc.
-
+**ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package designed for invoking OpenAI (note: this is not developed by the OpenAI company). Utilizing this package allows you to make calls to the OpenAI API while maintaining complete control over resilience and logging. This is possible because Refit enables thorough control over the `HttpClient`, including logging, returned HTTP status codes, and more.
 
 # Table of Contents
 - [Refit.OpenAI](#refitopenai)
@@ -10,6 +9,7 @@
   - [Variations](#variations)
   - [Audio Translations](#audio-translations)
   - [Audio Transcriptions](#audio-transcriptions)
+  - [Moderations](#moderations)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
   - [Limitation of Liability](#limitation-of-liability)
@@ -78,7 +78,7 @@ The capital of France is Paris.
 
 ## Variations
 
-In addition to the completions functionality in OpenAI, this NuGet package also support image variations.
+In addition to the completions functionality in OpenAI, this NuGet package also supports image variations.
 
 Such an image variation can be achieved with this curl call.
 
@@ -197,10 +197,59 @@ Returned response status code OK
 Actual text Hallo wereld de wereld is van mij
 ```
 
+## Moderations
+A common problem on public websites is that they need to be moderated but the organizations that are supposed to do that are understaffed. For such problems, the OpenAI API can help which can be easily called through this NuGet package.
+
+Assume you want to do this request:
+
+```http
+POST https://api.openai.com/v1/moderations
+User-Agent: vscode-restclient
+Content-Type: application/json
+Authorization: Bearer YOURKEY
+```
+```json
+{
+    "input": "I want to hit my dog."
+}
+```
+
+You can run this using the following C# code:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Moderations;
+using ConnectingApps.Refit.OpenAI.Moderations.Request;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var moderationApi = RestService.For<IModeration>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+
+var response = await moderationApi.CreateModerationAsync(new ModerationRequest
+    {
+        Input = "I want to hit my dog."
+    }, $"Bearer {apiKey}");
+
+Console.WriteLine($"Returned response status code {response.StatusCode}");
+Console.WriteLine($"Check if this is violent {response.Content!.Results[0].Categories.Violence}");
+```
+
+giving this output:
+
+```txt
+Returned response status code OK
+Check if this is violent True
+```
+
+In this way, you can check for inappropriate comments given by users of your website.
+
 # Why Refit
 You can reuse your existing Refit experience to:
 1. Implement resilience in case of accidental failures
-2. Trace the statuscode of your REST Calls
+2. Trace the HTTP status code of your REST Calls
 3. Code in C# like it is a raw request
 4. Benefit from the highly performant (de)serialization using [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/#readme-body-tab)
 
