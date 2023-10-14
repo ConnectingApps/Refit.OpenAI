@@ -204,7 +204,6 @@ Assume you want to do this request:
 
 ```http
 POST https://api.openai.com/v1/moderations
-User-Agent: vscode-restclient
 Content-Type: application/json
 Authorization: Bearer YOURKEY
 ```
