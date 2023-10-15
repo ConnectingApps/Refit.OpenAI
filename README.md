@@ -10,7 +10,7 @@
   - [Audio Translations](#audio-translations)
   - [Audio Transcriptions](#audio-transcriptions)
   - [Moderations](#moderations)
-  - [Image Creation](#image-creation)
+  - [Image Creations](#image-creations)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
   - [Limitation of Liability](#limitation-of-liability)
@@ -246,7 +246,7 @@ Check if this is violent True
 
 In this way, you can check for inappropriate comments given by users of your website.
 
-## Image Creation
+## Image Creations
 
 For many years, companies had to hire photographers and graphical designers for all their stock images. Nowadays, companies can choose themselves if they want a human created or an AI created stock image. This is because OpenAI supports image creation based on a description and so does this NuGet package. Here is an example of a curl call you may want to do to generate two images, returned as urls for downloading, of a baby sea otter:
 

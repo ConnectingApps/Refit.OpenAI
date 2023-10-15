@@ -12,10 +12,10 @@
     <PackageProjectUrl>https://github.com/ConnectingApps/Refit.OpenAI</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ConnectingApps/Refit.OpenAI</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <PackageReleaseNotes>Image Creations added</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Icon.png</PackageIcon>
-    <Version>1.4.0</Version>
+    <Version>1.5.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
