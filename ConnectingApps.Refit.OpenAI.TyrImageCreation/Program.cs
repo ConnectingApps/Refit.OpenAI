@@ -4,12 +4,12 @@ using ConnectingApps.Refit.OpenAI.ImageCreations.Request;
 using Refit;
 
 var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
-var completionApi = RestService.For<IImageCreation>(new HttpClient
+var creationApi = RestService.For<IImageCreation>(new HttpClient
 {
     BaseAddress = new Uri("https://api.openai.com")
 }, OpenAiRefitSettings.RefitSettings);
 
-var response = await completionApi.CreateImageAsync(new ImageCreationRequest
+var response = await creationApi.CreateImageAsync(new ImageCreationRequest
     {
         N = 2,
         Prompt = "A cute baby sea otter.",
