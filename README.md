@@ -6,10 +6,11 @@
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
   - [Completions](#completions)
-  - [Variations](#variations)
+  - [Image Variations](#image-variations)
   - [Audio Translations](#audio-translations)
   - [Audio Transcriptions](#audio-transcriptions)
   - [Moderations](#moderations)
+  - [Image Creations](#image-creations)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
   - [Limitation of Liability](#limitation-of-liability)
@@ -76,7 +77,7 @@ Returned response status code OK
 The capital of France is Paris.
 ```
 
-## Variations
+## Image Variations
 
 In addition to the completions functionality in OpenAI, this NuGet package also supports image variations.
 
@@ -244,6 +245,59 @@ Check if this is violent True
 ```
 
 In this way, you can check for inappropriate comments given by users of your website.
+
+## Image Creations
+
+For many years, companies had to hire photographers and graphical designers for all their stock images. Nowadays, companies can choose themselves if they want a human created or an AI created stock image. This is because OpenAI supports image creation based on a description and so does this NuGet package. Here is an example of a curl call you may want to do to generate two images, returned as urls for downloading, of a baby sea otter:
+
+```http
+POST https://api.openai.com/v1/images/generations
+Content-Type: application/json
+Authorization: Bearer YOURKEY
+```
+```json
+{
+    "prompt": "A cute baby sea otter",
+    "n": 2,
+    "size": "1024x1024"
+}
+```
+
+Here is how to code this in C#:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.ImageCreations;
+using ConnectingApps.Refit.OpenAI.ImageCreations.Request;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var creationApi = RestService.For<IImageCreation>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+
+var response = await creationApi.CreateImageAsync(new ImageCreationRequest
+    {
+        N = 2,
+        Prompt = "A cute baby sea otter.",
+        Size = "1024x1024",
+    }, $"Bearer {apiKey}");
+
+Console.WriteLine($"Returned response status code {response.StatusCode}");
+Console.WriteLine($"Number of urls {response.Content!.Data.Length}" );
+Console.WriteLine($"First url {response.Content!.Data.First().Url}");
+Console.WriteLine($"Last url {response.Content!.Data.Last().Url}");
+```
+
+Here is the output:
+
+```text
+Returned response status code OK
+Number of urls 2
+First url [FIRST URL]
+Last url [SECOND URL]
+```
 
 # Why Refit
 You can reuse your existing Refit experience to:
