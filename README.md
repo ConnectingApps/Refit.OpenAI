@@ -6,7 +6,7 @@
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
   - [Completions](#completions)
-  - [Variations](#variations)
+  - [Image Variations](#image-variations)
   - [Audio Translations](#audio-translations)
   - [Audio Transcriptions](#audio-transcriptions)
   - [Moderations](#moderations)
@@ -77,7 +77,7 @@ Returned response status code OK
 The capital of France is Paris.
 ```
 
-## Variations
+## Image Variations
 
 In addition to the completions functionality in OpenAI, this NuGet package also supports image variations.
 
