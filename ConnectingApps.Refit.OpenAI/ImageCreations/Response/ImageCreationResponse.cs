@@ -2,7 +2,7 @@
 {
     public class ImageCreationResponse
     {
-        public int Created { get; set; }
+        public long Created { get; set; }
         public Datum[] Data { get; set; } = null!;
     }
 }
