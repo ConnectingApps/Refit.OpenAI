@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI.Test", "ConnectingApps.Refit.OpenAI.Test\ConnectingApps.Refit.OpenAI.Test.csproj", "{E9FBC56A-BFAF-48EC-BCAC-531040DA0BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.Moderation", "ConnectingApps.Refit.OpenAI.Moderation\ConnectingApps.Refit.OpenAI.Moderation.csproj", "{F0F638FC-0542-42C1-90FE-0C8FFFC4E4D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI.Moderation", "ConnectingApps.Refit.OpenAI.Moderation\ConnectingApps.Refit.OpenAI.Moderation.csproj", "{F0F638FC-0542-42C1-90FE-0C8FFFC4E4D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.TryTranscription", "ConnectingApps.Refit.OpenAI.TryTranscription\ConnectingApps.Refit.OpenAI.TryTranscription.csproj", "{FEC46228-DEA8-4926-A4D4-BEAFF57B0639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI.TryTranscription", "ConnectingApps.Refit.OpenAI.TryTranscription\ConnectingApps.Refit.OpenAI.TryTranscription.csproj", "{FEC46228-DEA8-4926-A4D4-BEAFF57B0639}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.TyrImageCreation", "ConnectingApps.Refit.OpenAI.TyrImageCreation\ConnectingApps.Refit.OpenAI.TyrImageCreation.csproj", "{F75785F8-B215-4BDC-B57C-C742AE7FA04C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{FEC46228-DEA8-4926-A4D4-BEAFF57B0639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEC46228-DEA8-4926-A4D4-BEAFF57B0639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEC46228-DEA8-4926-A4D4-BEAFF57B0639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

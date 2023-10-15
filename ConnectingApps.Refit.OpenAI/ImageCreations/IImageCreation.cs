@@ -8,7 +8,7 @@ namespace ConnectingApps.Refit.OpenAI.ImageCreations
     public interface IImageCreation
     {
         [Post("/v1/images/generations")]
-        Task<ApiResponse<ImageCreationResponse>> CreateModerationAsync([Body] ImageCreationRequest moderationRequest,
+        Task<ApiResponse<ImageCreationResponse>> CreateImageAsync([Body] ImageCreationRequest moderationRequest,
             [Header("Authorization")] string authorization);
     }
 }
