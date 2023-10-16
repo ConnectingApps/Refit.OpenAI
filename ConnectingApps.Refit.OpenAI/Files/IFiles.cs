@@ -7,7 +7,7 @@ namespace ConnectingApps.Refit.OpenAI.Files
     public interface IFiles
     {
         [Get("/v1/files")]
-        Task<ApiResponse<FileGetResponse>> GetFilesAsync();
+        Task<ApiResponse<FileGetResponse>> GetFilesAsync([Header("Authorization")] string authorizationToken);
 
         [Delete("/v1/files/{fileId}")]
         Task<ApiResponse<FileDeleteResponse>> DeleteFileAsync(string fileId, [Header("Authorization")] string authorizationToken);
