@@ -54,6 +54,46 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
         }
 
         [Fact]
+        public async Task DeleteKnownFile()
+        {
+            var response = await FileApi.GetFilesAsync($"Bearer {ApiKey}");
+            (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
+            response.Content!.Object.Should().NotBeNullOrEmpty();
+            await using (var image = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
+            {
+                var streamPart = new StreamPart(image, "mydata.jsonl");
+                var postResponse = await FileApi.PostFileAsync($"Bearer {ApiKey}", streamPart, "fine-tune");
+                var getResponseAfterPost = await FileApi.GetFilesAsync($"Bearer {ApiKey}");
+                await Task.Delay(10000);
+                var deleteResponse = await FileApi.DeleteFileAsync(postResponse.Content?.Id!, $"Bearer {ApiKey}");
+                var getResponseAfterDelete = await FileApi.GetFilesAsync($"Bearer {ApiKey}");
+
+                (getResponseAfterPost.Error?.Content,
+                        getResponseAfterPost.StatusCode,
+                        deleteResponse.Error?.Content,
+                        deleteResponse.StatusCode,
+                        getResponseAfterDelete.Error?.Content,
+                        getResponseAfterDelete.StatusCode,
+                        postResponse.Error?.Content,
+                        postResponse.StatusCode)
+                    .Should().Be(
+                        (null,
+                            HttpStatusCode.OK,
+                            null,
+                            HttpStatusCode.OK,
+                            null,
+                            HttpStatusCode.OK,
+                            null,
+                            HttpStatusCode.OK));
+
+                getResponseAfterDelete.Content!.Data.Length.Should().Be(getResponseAfterPost.Content!.Data.Length - 1);
+                getResponseAfterDelete.Content!.Data.Should().NotContain(x => x.Id == postResponse.Content!.Id);
+                getResponseAfterPost.Content!.Data.Should().Contain(x => x.Id == postResponse.Content!.Id);
+                response.Content!.Data.Should().NotContain(x => x.Id == postResponse.Content!.Id);
+            }
+        }
+
+        [Fact]
         public async Task DeleteUnknownFile()
         {
             var response = await FileApi.DeleteFileAsync("file-FZ3UiIdfjYFzAsooLLUtu01F", $"Bearer {ApiKey}");
