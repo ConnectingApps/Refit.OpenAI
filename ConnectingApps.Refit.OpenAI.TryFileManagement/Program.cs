@@ -29,7 +29,7 @@ var newGetResponse = await completionApi.GetFilesAsync(authorizationHeader);
 Console.WriteLine($"Returned GET response status code after POST {newGetResponse.StatusCode}");
 Console.WriteLine($"Number of items {newGetResponse.Content!.Data.Length}");
 
-
+await Task.Delay(10000);
 var deleteResponse = await completionApi.DeleteFileAsync(postResponse.Content.Id, authorizationHeader);
 Console.WriteLine($"Returned DELETE response status code {deleteResponse.StatusCode}");
 
