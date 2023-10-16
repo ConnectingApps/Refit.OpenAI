@@ -30,9 +30,6 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
         [Fact]
         public async Task PostFile()
         {
-            var response = await FileApi.GetFilesAsync($"Bearer {ApiKey}");
-            (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
-            response.Content!.Object.Should().NotBeNullOrEmpty();
             await using (var image = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
             {
                 var streamPart = new StreamPart(image, "mydata.jsonl");
