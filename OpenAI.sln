@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI.TryTranscription", "ConnectingApps.Refit.OpenAI.TryTranscription\ConnectingApps.Refit.OpenAI.TryTranscription.csproj", "{FEC46228-DEA8-4926-A4D4-BEAFF57B0639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.TyrImageCreation", "ConnectingApps.Refit.OpenAI.TyrImageCreation\ConnectingApps.Refit.OpenAI.TyrImageCreation.csproj", "{F75785F8-B215-4BDC-B57C-C742AE7FA04C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectingApps.Refit.OpenAI.TyrImageCreation", "ConnectingApps.Refit.OpenAI.TyrImageCreation\ConnectingApps.Refit.OpenAI.TyrImageCreation.csproj", "{F75785F8-B215-4BDC-B57C-C742AE7FA04C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectingApps.Refit.OpenAI.TryFileManagement", "ConnectingApps.Refit.OpenAI.TryFileManagement\ConnectingApps.Refit.OpenAI.TryFileManagement.csproj", "{1BB698D3-EE37-43C9-8C31-4F29E06E08BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F75785F8-B215-4BDC-B57C-C742AE7FA04C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB698D3-EE37-43C9-8C31-4F29E06E08BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB698D3-EE37-43C9-8C31-4F29E06E08BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB698D3-EE37-43C9-8C31-4F29E06E08BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB698D3-EE37-43C9-8C31-4F29E06E08BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

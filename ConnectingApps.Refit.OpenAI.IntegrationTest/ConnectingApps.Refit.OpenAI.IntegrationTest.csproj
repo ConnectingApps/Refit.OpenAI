@@ -4,7 +4,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <LangVersion>11</LangVersion>
@@ -32,6 +31,9 @@
 
   <ItemGroup>
     <None Update="HalloWereld.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="mydata.jsonl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="otter.png">
