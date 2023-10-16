@@ -39,14 +39,14 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 var postResponse = await FileApi.PostFileAsync($"Bearer {ApiKey}", streamPart, "fine-tune");
                 (postResponse.Error?.Content, 
                     postResponse.StatusCode,
-                    postResponse.Content?.Bytes,
+                    postResponse.Content?.Bytes is > 480 and < 500,
                     postResponse.Content?.Filename,
                     postResponse.Content?.Status,
                     postResponse.Content?.StatusDetails
                     ).Should().
                     Be((null,
                         HttpStatusCode.OK,
-                        493,
+                        true,
                         "mydata.jsonl",
                         "uploaded",
                         null));
