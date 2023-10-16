@@ -11,4 +11,10 @@
     <ProjectReference Include="..\ConnectingApps.Refit.OpenAI\ConnectingApps.Refit.OpenAI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="mydata.jsonl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
