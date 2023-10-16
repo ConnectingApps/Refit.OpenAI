@@ -1,5 +1,5 @@
 # Refit.OpenAI
-**ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package designed for invoking OpenAI (note: this is not developed by the OpenAI company). Utilizing this package allows you to make calls to the OpenAI API while maintaining complete control over resilience and logging. This is possible because Refit enables thorough control over the `HttpClient`, including logging, returned HTTP status codes, and more.
+**ConnectingApps.Refit.OpenAI** is a [Refit](https://github.com/reactiveui/refit#refit-the-automatic-type-safe-rest-library-for-net-core-xamarin-and-net) client package designed for invoking OpenAI (note: this is not developed by the OpenAI company). Utilizing this package allows you to make calls to the OpenAI API while maintaining complete control over resilience and logging. This is possible because Refit enables thorough control over the `HttpClient`, including logging, returned HTTP status codes, and more. OpenAI already [clearly documented](https://platform.openai.com/docs/api-reference/making-requests) their API and how to call it with `curl` or `python`. This is document explains how you can use this NuGet package do to the same with C#.
 
 # Table of Contents
 - [Refit.OpenAI](#refitopenai)
@@ -11,6 +11,7 @@
   - [Audio Transcriptions](#audio-transcriptions)
   - [Moderations](#moderations)
   - [Image Creations](#image-creations)
+  - [File Management](#file-management)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
   - [Limitation of Liability](#limitation-of-liability)
@@ -298,6 +299,67 @@ Number of urls 2
 First url [FIRST URL]
 Last url [SECOND URL]
 ```
+
+## File Management
+
+In various situations, you may want to post files which you can also delete. For example, the files you use for fine-tuning your models. Like the OpenAI API, this NuGet package supports that. Here is the C# code to demonstrate that.
+
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Files;
+using ConnectingApps.Refit.OpenAI.Files.Response;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var authorizationHeader = $"Bearer {apiKey}";
+var completionApi = RestService.For<IFiles>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+
+var getResponse = await completionApi.GetFilesAsync(authorizationHeader);
+Console.WriteLine($"Returned GET response status code {getResponse.StatusCode}");
+Console.WriteLine($"Number of items {getResponse.Content!.Data.Length}");
+
+ApiResponse<FilePostResponse> postResponse;
+
+await using (var image = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
+{
+    var openAiApi = RestService.For<IFiles>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+    var streamPart = new StreamPart(image, "mydata.jsonl");
+    postResponse = await openAiApi.PostFileAsync(authorizationHeader, streamPart, "fine-tune");
+    Console.WriteLine($"Returned POST response status code {postResponse.StatusCode}");
+    Console.WriteLine($"Returned POST response number of bytes {postResponse.Content!.Bytes}");
+}
+
+var newGetResponse = await completionApi.GetFilesAsync(authorizationHeader);
+Console.WriteLine($"Returned GET response status code after POST {newGetResponse.StatusCode}");
+Console.WriteLine($"Number of items {newGetResponse.Content!.Data.Length}");
+
+await Task.Delay(10000);
+var deleteResponse = await completionApi.DeleteFileAsync(postResponse.Content.Id, authorizationHeader);
+Console.WriteLine($"Returned DELETE response status code {deleteResponse.StatusCode}");
+
+var deleteAfterGetResponse = await completionApi.GetFilesAsync(authorizationHeader);
+Console.WriteLine($"Returned GET response status code after DELETE {deleteAfterGetResponse.StatusCode}");
+Console.WriteLine($"Number of items {deleteAfterGetResponse.Content!.Data.Length}");
+```
+
+which gives the following output:
+```text
+Returned GET response status code OK
+Number of items 20
+Returned POST response status code OK
+Returned POST response number of bytes 493
+Returned GET response status code after POST OK
+Number of items 21
+Returned DELETE response status code OK
+Returned GET response status code after DELETE OK
+Number of items 20
+```
+
+which shows that the number of files goes up after posting a new one and goes down after deleting an existing one.
 
 # Why Refit
 You can reuse your existing Refit experience to:
