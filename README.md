@@ -12,6 +12,7 @@
   - [Moderations](#moderations)
   - [Image Creations](#image-creations)
   - [File Management](#file-management)
+  - [Embeddings](#embeddings)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
   - [Limitation of Liability](#limitation-of-liability)
@@ -360,6 +361,56 @@ Number of items 20
 ```
 
 which shows that the number of files goes up after posting a new one and goes down after deleting an existing one.
+
+## Embeddings
+The relatedness of text strings can be measured using OpenAI’s text embeddings. This is relevant for things such as searching, clustering and classification. To learn more about this topic, read the [OpenAI documentation](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) about it. 
+
+Here is an example of a call get an embedding:
+
+```http
+POST https://api.openai.com/v1/embeddings
+Authorization: Bearer {{key}}
+Content-Type: application/json
+```
+```json
+{
+    "input": "The food was delicious",
+    "model": "text-embedding-ada-002"
+}
+```
+
+This can be coded in C# using our NuGet package.
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Embeddings;
+using ConnectingApps.Refit.OpenAI.Embeddings.Request;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var completionApi = RestService.For<IEmbedding>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+
+var response = await completionApi.GetEmbeddingAsync(new EmbeddingRequest
+    {
+        Input = "The food was delicious",
+        Model = "text-embedding-ada-002"
+}, $"Bearer {apiKey}");
+
+Console.WriteLine($"Returned response status code {response.StatusCode}");
+Console.WriteLine($"Vector length {response.Content!.Data.First().Embedding.Length}");
+Console.WriteLine($"Vector {string.Join(", ", response.Content!.Data.First().Embedding.Take(10))}...");
+```
+
+This gives the following output.
+
+```text
+Returned response status code OK
+Vector length 1536
+Vector 0,022599462, -0,0008510616, -0,005139073, -0,010128645, -0,0023203692, 0,0057370737, -0,01077648, -0,03453457, 0,008851663, -0,044576004...
+```
 
 # Why Refit
 You can reuse your existing Refit experience to:
