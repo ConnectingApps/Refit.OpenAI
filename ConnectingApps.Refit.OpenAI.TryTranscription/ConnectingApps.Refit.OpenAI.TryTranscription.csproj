@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConnectingApps.Refit.OpenAI" Version="1.3.0" />
+    <PackageReference Include="ConnectingApps.Refit.OpenAI" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
