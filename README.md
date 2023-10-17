@@ -404,7 +404,7 @@ Console.WriteLine($"Vector length {response.Content!.Data.First().Embedding.Leng
 Console.WriteLine($"Vector {string.Join(", ", response.Content!.Data.First().Embedding.Take(10))}...");
 ```
 
-This gives the following output.
+This gives the following output:
 
 ```text
 Returned response status code OK
