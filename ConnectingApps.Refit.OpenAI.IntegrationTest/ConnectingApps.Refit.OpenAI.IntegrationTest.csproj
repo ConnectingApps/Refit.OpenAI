@@ -33,6 +33,9 @@
     <None Update="HalloWereld.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="fineTune.jsonl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="mydata.jsonl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
