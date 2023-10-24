@@ -397,7 +397,7 @@ await using (var fineTuneDataStream = new FileStream("mydata.jsonl", FileMode.Op
     newTraingFile = postFileResponse.Content!.Id;
 }
 
-var newJobResponse = await fineTuneApi.PostJob(new FineTuneRequest
+var newJobResponse = await fineTuneApi.PostJobAsync(new FineTuneRequest
 {
     TrainingFile = newTraingFile,
     Model = "gpt-3.5-turbo"
