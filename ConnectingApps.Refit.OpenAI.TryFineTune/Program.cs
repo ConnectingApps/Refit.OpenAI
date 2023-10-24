@@ -11,16 +11,16 @@ var fineTuneApi = RestService.For<IFineTune>(new HttpClient
 }, OpenAiRefitSettings.RefitSettings);
 var token = $"Bearer {apiKey}";
 
-var jobs = await fineTuneApi.GetJobsAsync(token);
+var jobs = await fineTuneApi.GetJobsAsync(token, limit: 200);
 
 Console.WriteLine($"Returned response status code {jobs.StatusCode}");
 Console.WriteLine($"Number of jobs {jobs.Content!.Data.Length}");
 string newTraingFile;
 
-await using (var image = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
+await using (var fineTuneDataStream = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
 {
     var openAiApi = RestService.For<IFiles>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
-    var streamPart = new StreamPart(image, "mydata.jsonl");
+    var streamPart = new StreamPart(fineTuneDataStream, "mydata.jsonl");
     var postFileResponse = await openAiApi.PostFileAsync(token, streamPart, "fine-tune");
     Console.WriteLine($"Returned POST response status code {postFileResponse.StatusCode}");
     Console.WriteLine($"Returned POST response number of bytes {postFileResponse.Content!.Bytes}");
@@ -35,7 +35,7 @@ var newJobResponse = await fineTuneApi.PostJob(new FineTuneRequest
 
 Console.WriteLine($"New job response {newJobResponse.StatusCode}");
 
-var newJobs = await fineTuneApi.GetJobsAsync(token);
+var newJobs = await fineTuneApi.GetJobsAsync(token, limit:200);
 Console.WriteLine($"New Job files Returned response status code {newJobs.StatusCode}");
 Console.WriteLine($"Number of jobs after POST {newJobs.Content!.Data.Length}");
 
