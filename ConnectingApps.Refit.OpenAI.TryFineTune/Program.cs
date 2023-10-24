@@ -4,8 +4,6 @@ using ConnectingApps.Refit.OpenAI.FineTune;
 using ConnectingApps.Refit.OpenAI.FineTune.Request;
 using Refit;
 
-Console.WriteLine("Hello, World!");
-
 var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
 var fineTuneApi = RestService.For<IFineTune>(new HttpClient
 {
