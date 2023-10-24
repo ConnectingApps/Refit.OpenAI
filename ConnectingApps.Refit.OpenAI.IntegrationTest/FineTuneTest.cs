@@ -62,6 +62,10 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 var getJobsResponse = await FineTuneApi.GetJobsAsync($"Bearer {ApiKey}");
                 (getJobsResponse.Error?.Content, getJobsResponse.StatusCode).Should().Be((null, HttpStatusCode.OK));
                 getJobsResponse.Content!.Data.Should().NotBeEmpty();
+                getJobsResponse.Content.Data.Should().AllSatisfy(x =>
+                {
+                    x.Id.Should().NotBeNullOrEmpty();
+                });
 
                 await Task.Delay(waitingTimeBeforeCancel);
                 var cancelJobResponse = await FineTuneApi.CancelJobAsync(postJobResponse.Content.Id, $"Bearer {ApiKey}");
