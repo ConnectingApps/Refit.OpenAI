@@ -16,6 +16,6 @@
         public string TrainingFile { get; set; } = null!;
         public Hyperparameters Hyperparameters { get; set; } = null!;
         public long? TrainedTokens { get; set; } 
-        public object? Error { get; set; } 
+        public FineTuneError? Error { get; set; } 
     }
 }
