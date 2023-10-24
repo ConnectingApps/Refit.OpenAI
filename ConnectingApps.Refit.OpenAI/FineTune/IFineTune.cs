@@ -12,7 +12,7 @@ namespace ConnectingApps.Refit.OpenAI.FineTune
             [Header("Authorization")] string authorization, [Query("limit")] int? limit = null);
 
         [Post("/v1/fine_tuning/jobs")]
-        public Task<ApiResponse<FineTuneResponse>> PostJob([Body] FineTuneRequest request,
+        public Task<ApiResponse<FineTuneResponse>> PostJobAsync([Body] FineTuneRequest request,
             [Header("Authorization")] string authorization);
 
         [Get("/v1/fine_tuning/jobs/{jobId}")]

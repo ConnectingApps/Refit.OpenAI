@@ -48,7 +48,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 var streamPart = new StreamPart(fineTuneData, "fineTune.jsonl");
                 var postFileResponse = await FileApi.PostFileAsync($"Bearer {ApiKey}", streamPart, "fine-tune");
                 (postFileResponse.Error?.Content, postFileResponse.StatusCode).Should().Be((null, HttpStatusCode.OK));
-                var postJobResponse = await FineTuneApi.PostJob(new FineTuneRequest
+                var postJobResponse = await FineTuneApi.PostJobAsync(new FineTuneRequest
                 {
                     Model = "gpt-3.5-turbo",
                     TrainingFile = postFileResponse.Content!.Id
