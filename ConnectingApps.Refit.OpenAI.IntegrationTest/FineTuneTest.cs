@@ -64,6 +64,8 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 getJobsResponse.Content!.Data.Should().NotBeEmpty();
                 getJobsResponse.Content.Data.Should().AllSatisfy(x =>
                 {
+                    x.Hyperparameters.NEpochs.Should().NotBeNullOrEmpty();
+                    x.CreatedAt.Should().NotBe(default);
                     x.Id.Should().NotBeNullOrEmpty();
                 });
 
