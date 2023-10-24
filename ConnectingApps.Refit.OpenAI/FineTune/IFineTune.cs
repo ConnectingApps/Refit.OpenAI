@@ -8,7 +8,7 @@ namespace ConnectingApps.Refit.OpenAI.FineTune
     public interface IFineTune
     {
         [Get("/v1/fine_tuning/jobs")]
-        public Task<ApiResponse<FineTuneOverview>> GetJobsAsync([Query("limit")] int limit, 
+        public Task<ApiResponse<FineTuneOverview>> GetJobsAsync([Query("limit")] int? limit, 
             [Header("Authorization")] string authorization);
 
         [Post("/v1/fine_tuning/jobs")]
