@@ -12,6 +12,7 @@
   - [Moderations](#moderations)
   - [Image Creations](#image-creations)
   - [File Management](#file-management)
+  - [Fine-tuning](#fine-tuning)
   - [Embeddings](#embeddings)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
@@ -361,6 +362,75 @@ Number of items 20
 ```
 
 which shows that the number of files goes up after posting a new one and goes down after deleting an existing one.
+
+## Fine-tuning
+
+After uploading a file that can be used for fine-tuning, you can do the fine-tuning itself by starting (and then canceling a job). Here is how:
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Files;
+using ConnectingApps.Refit.OpenAI.FineTune;
+using ConnectingApps.Refit.OpenAI.FineTune.Request;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var fineTuneApi = RestService.For<IFineTune>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+var token = $"Bearer {apiKey}";
+
+var jobs = await fineTuneApi.GetJobsAsync(token, limit: 200);
+
+Console.WriteLine($"Returned response status code {jobs.StatusCode}");
+Console.WriteLine($"Number of jobs {jobs.Content!.Data.Length}");
+string newTraingFile;
+
+await using (var fineTuneDataStream = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
+{
+    var openAiApi = RestService.For<IFiles>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+    var streamPart = new StreamPart(fineTuneDataStream, "mydata.jsonl");
+    var postFileResponse = await openAiApi.PostFileAsync(token, streamPart, "fine-tune");
+    Console.WriteLine($"Returned POST response status code {postFileResponse.StatusCode}");
+    Console.WriteLine($"Returned POST response number of bytes {postFileResponse.Content!.Bytes}");
+    newTraingFile = postFileResponse.Content!.Id;
+}
+
+var newJobResponse = await fineTuneApi.PostJobAsync(new FineTuneRequest
+{
+    TrainingFile = newTraingFile,
+    Model = "gpt-3.5-turbo"
+}, token);
+
+Console.WriteLine($"New job response {newJobResponse.StatusCode}");
+
+var newJobs = await fineTuneApi.GetJobsAsync(token, limit:200);
+Console.WriteLine($"New Job files Returned response status code {newJobs.StatusCode}");
+Console.WriteLine($"Number of jobs after POST {newJobs.Content!.Data.Length}");
+
+var newJob = await fineTuneApi.GetJobAsync(newJobResponse.Content!.Id, token);
+Console.WriteLine($"Get new job response {newJob.StatusCode}");
+
+var cancelResponse = await fineTuneApi.CancelJobAsync(newJobResponse.Content!.Id, token);
+Console.WriteLine($"Cancel job response {cancelResponse.StatusCode}");
+```
+
+This gives the following output
+
+```txt
+Returned response status code OK
+Number of jobs 42
+Returned POST response status code OK
+Returned POST response number of bytes 246
+New job response OK
+New Job files Returned response status code OK
+Number of jobs after POST 43
+Get new job response OK
+Cancel job response OK
+```
+
+This shows the number of jobs goes up after a new job is posted.
 
 ## Embeddings
 The relatedness of text strings can be measured using OpenAI’s text embeddings. This is relevant for things such as searching, clustering and classification. To learn more about this topic, read the [OpenAI documentation](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) about it. 
