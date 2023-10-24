@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using ConnectingApps.Refit.OpenAI;
+﻿using ConnectingApps.Refit.OpenAI;
 using ConnectingApps.Refit.OpenAI.Files;
 using ConnectingApps.Refit.OpenAI.FineTune;
 using ConnectingApps.Refit.OpenAI.FineTune.Request;
@@ -19,7 +17,7 @@ var jobs = await fineTuneApi.GetJobsAsync(token);
 
 Console.WriteLine($"Returned response status code {jobs.StatusCode}");
 Console.WriteLine($"Number of jobs {jobs.Content!.Data.Length}");
-string newTraingFile = null!;
+string newTraingFile;
 
 await using (var image = new FileStream("mydata.jsonl", FileMode.Open, FileAccess.Read))
 {
@@ -42,3 +40,10 @@ Console.WriteLine($"New job response {newJobResponse.StatusCode}");
 var newJobs = await fineTuneApi.GetJobsAsync(token);
 Console.WriteLine($"New Job files Returned response status code {newJobs.StatusCode}");
 Console.WriteLine($"Number of jobs after POST {newJobs.Content!.Data.Length}");
+
+var newJob = await fineTuneApi.GetJobAsync(newJobResponse.Content!.Id, token);
+Console.WriteLine($"Get new job response {newJob.StatusCode}");
+
+var cancelResponse = await fineTuneApi.CancelJobAsync(newJobResponse.Content!.Id, token);
+Console.WriteLine($"Cancel job response {cancelResponse.StatusCode}");
+
