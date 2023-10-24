@@ -75,5 +75,32 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
                 $"{cancelJobResponse.Content?.Id} {cancelJobResponse.Error?.Content}".Should().NotBeEmpty();
             }
         }
+
+
+        [Theory]
+        [InlineData(null, 1)]
+        [InlineData("training_file", 18000)]
+        public async Task TryToPostToCheckError(string errorParam, int waitingTimeBeforeGet)
+        {
+            await using (var fineTuneData = new FileStream("fineTune.jsonl", FileMode.Open, FileAccess.Read))
+            {
+                var streamPart = new StreamPart(fineTuneData, "fineTune.jsonl");
+                var postFileResponse = await FileApi.PostFileAsync($"Bearer {ApiKey}", streamPart, "fine-tune");
+                (postFileResponse.Error?.Content, postFileResponse.StatusCode).Should().Be((null, HttpStatusCode.OK));
+                var postJobResponse = await FineTuneApi.PostJobAsync(new FineTuneRequest
+                {
+                    Model = "gpt-3.5-turbo",
+                    TrainingFile = postFileResponse.Content!.Id
+                }, $"Bearer {ApiKey}");
+                (postJobResponse.Error?.Content, postJobResponse.StatusCode).Should().Be((null, HttpStatusCode.OK));
+                postJobResponse.Content!.Object.Should().NotBeNullOrEmpty();
+
+                await Task.Delay(waitingTimeBeforeGet);
+
+                var getJobResponse = await FineTuneApi.GetJobAsync(postJobResponse.Content!.Id, $"Bearer {ApiKey}");
+                (getJobResponse.Error?.Content, getJobResponse.StatusCode).Should().Be((null, HttpStatusCode.OK));
+                getJobResponse.Content?.Error?.Param.Should().Be(errorParam);
+            }
+        }
     }
 }
