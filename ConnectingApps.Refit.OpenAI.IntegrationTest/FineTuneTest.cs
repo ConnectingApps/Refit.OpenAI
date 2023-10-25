@@ -40,7 +40,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
 
         [Theory]
         [InlineData(HttpStatusCode.OK, 1)]
-        [InlineData(HttpStatusCode.BadRequest, 18000)]
+        [InlineData(HttpStatusCode.BadRequest, 24000)]
         public async Task TryToPost(HttpStatusCode expectStatusCodeOfCancelRespons, int waitingTimeBeforeCancel)
         {
             await using (var fineTuneData = new FileStream("fineTune.jsonl", FileMode.Open, FileAccess.Read))
@@ -79,7 +79,7 @@ namespace ConnectingApps.Refit.OpenAI.IntegrationTest
 
         [Theory]
         [InlineData(null, 1)]
-        [InlineData("training_file", 18000)]
+        [InlineData("training_file", 24000)]
         public async Task TryToPostToCheckError(string errorParam, int waitingTimeBeforeGet)
         {
             await using (var fineTuneData = new FileStream("fineTune.jsonl", FileMode.Open, FileAccess.Read))
