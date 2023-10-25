@@ -13,6 +13,7 @@
   - [Image Creations](#image-creations)
   - [File Management](#file-management)
   - [Fine-tuning](#fine-tuning)
+  - [Modeling](#modeling)
   - [Embeddings](#embeddings)
 - [Why Refit](#why-refit)
 - [Legal Statement](#legal-statement)
@@ -431,6 +432,47 @@ Cancel job response OK
 ```
 
 This shows the number of jobs goes up after a new job is posted.
+
+## Modeling
+
+The models can be retrieved and deleted (if existing) with this NuGet package. Here is how this works. Logically, in case the model name is not recognized, a 404 is returned.
+
+```csharp
+using ConnectingApps.Refit.OpenAI;
+using ConnectingApps.Refit.OpenAI.Modeling;
+using Refit;
+
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+var modelingApi = RestService.For<IModeling>(new HttpClient
+{
+    BaseAddress = new Uri("https://api.openai.com")
+}, OpenAiRefitSettings.RefitSettings);
+var authHeader = $"Bearer {apiKey}";
+
+var modelsResponse = await modelingApi.GetModelsAsync(authHeader);
+Console.WriteLine($"Models response {modelsResponse.StatusCode}");
+Console.WriteLine($"Id of first model {modelsResponse.Content!.Data.First().Id}" );
+
+var modelResponse = await modelingApi.GetModelAsync(authHeader, modelsResponse.Content!.Data.First().Id);
+Console.WriteLine($"Model response {modelResponse.StatusCode}");
+Console.WriteLine($"Object name of model {modelResponse.Content!.Object}" );
+Console.WriteLine($"OwnedBy model {modelResponse.Content!.OwnedBy}" );
+
+var deleteResponse = await modelingApi.DeleteModelAsync(authHeader, "unknownName");
+Console.WriteLine($"Statuscode of delete response {deleteResponse.StatusCode}");
+```
+
+This gives the following output:
+```text
+Models response OK
+Id of first model text-search-babbage-doc-001
+Model response OK
+Object name of model model
+OwnedBy model openai-dev
+Statuscode of delete response NotFound
+```
+
+
 
 ## Embeddings
 The relatedness of text strings can be measured using OpenAI’s text embeddings. This is relevant for things such as searching, clustering and classification. To learn more about this topic, read the [OpenAI documentation](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) about it. 
