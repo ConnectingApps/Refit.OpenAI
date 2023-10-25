@@ -11,10 +11,10 @@
     <PackageProjectUrl>https://github.com/ConnectingApps/Refit.OpenAI</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ConnectingApps/Refit.OpenAI</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Fine-tuning added</PackageReleaseNotes>
+    <PackageReleaseNotes>Modeling added</PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>Icon.png</PackageIcon>
-    <Version>1.8.0</Version>
+    <Version>1.9.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
