@@ -19,15 +19,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x' # Adjust the version as necessary
 
       - name: Run another one-line script
-        run: echo Hello, ${{ vars.PUBLISH_NUGET }}!     
+        run: echo Hello, ${{ vars.PUBLISH_NUGET }}!
 
       - name: Restore dependencies
         run: dotnet restore OpenAI.sln
@@ -36,10 +36,10 @@ jobs:
         run: dotnet build OpenAI.sln --configuration Release --no-restore
 
       - name: Run Tests
-        run: python -c "import os; os.system('dotnet test OpenAI.sln --configuration Release --no-build --verbosity normal  --logger trx');"  
+        run: python -c "import os; os.system('dotnet test OpenAI.sln --configuration Release --no-build --verbosity normal --logger trx');"
 
       - name: Publish Test Results
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         with:
           name: 'Test Results'
           path: '**/TestResults/**/*.trx'
@@ -52,24 +52,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.0.x' # Adjust the version as necessary
 
       - name: Restore dependencies
         run: dotnet restore OpenAI.sln
-  
+
       - name: Build Solution
-        run: dotnet build OpenAI.sln --configuration Release --no-restore          
+        run: dotnet build OpenAI.sln --configuration Release --no-restore
 
       - name: Pack
         run: dotnet pack ConnectingApps.Refit.OpenAI/ConnectingApps.Refit.OpenAI.csproj --configuration Release --no-build -o out
 
       - name: Find package file
-        run: find | grep 'nupkg'       
+        run: find | grep 'nupkg'
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v3
@@ -79,4 +79,4 @@ jobs:
 
       - name: Publish to NuGet
         if: ${{ vars.PUBLISH_NUGET == 'true' }} # Conditional execution based on PUBLISH_NUGET environment variable
-        run: dotnet nuget push "out/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json       
+        run: dotnet nuget push "out/*.nupkg" --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json
