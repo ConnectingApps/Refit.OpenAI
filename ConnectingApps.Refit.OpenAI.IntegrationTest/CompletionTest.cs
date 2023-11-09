@@ -5,59 +5,58 @@ using FluentAssertions;
 using Refit;
 using ConnectingApps.Refit.OpenAI.Completions.Response;
 
-namespace ConnectingApps.Refit.OpenAI.IntegrationTest
+namespace ConnectingApps.Refit.OpenAI.IntegrationTest;
+
+public class CompletionTest
 {
-    public class CompletionTest
+    private static readonly Func<ChatRequest, Task<ApiResponse<ChatResponse>>> CompletionCaller;
+
+    static CompletionTest()
     {
-        private static readonly Func<ChatRequest, Task<ApiResponse<ChatResponse>>> CompletionCaller;
+        var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
+        apiKey.Should().NotBeNullOrEmpty("OPENAI_KEY environment variable must be set");
+        var completionApi = RestService.For<ICompletion>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
+        CompletionCaller = chatRequest => completionApi.CreateCompletionAsync(chatRequest, $"Bearer {apiKey}");
+    }
 
-        static CompletionTest()
+    [Fact]
+    public async Task CapitalOfFrance()
+    {
+        var response = await CompletionCaller(new ChatRequest
         {
-            var apiKey = Environment.GetEnvironmentVariable("OPENAI_KEY");
-            apiKey.Should().NotBeNullOrEmpty("OPENAI_KEY environment variable must be set");
-            var completionApi = RestService.For<ICompletion>("https://api.openai.com", OpenAiRefitSettings.RefitSettings);
-            CompletionCaller = chatRequest => completionApi.CreateCompletionAsync(chatRequest, $"Bearer {apiKey}");
-        }
-
-        [Fact]
-        public async Task CapitalOfFrance()
-        {
-            var response = await CompletionCaller(new ChatRequest
+            Model = "gpt-3.5-turbo",
+            Temperature = 0.7,
+            Messages = new List<Message>
             {
-                Model = "gpt-3.5-turbo",
-                Temperature = 0.7,
-                Messages = new List<Message>
+                new()
                 {
-                    new()
-                    {
-                        Role = "user",
-                        Content = "What is the capital of the France?",
-                    }
+                    Role = "user",
+                    Content = "What is the capital of the France?",
                 }
-            });
-            (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
-            response.Content!.Choices!.First().Message!.Content.Should().Contain("Paris");
-        }
+            }
+        });
+        (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
+        response.Content!.Choices!.First().Message!.Content.Should().Contain("Paris");
+    }
 
 
-        [Fact]
-        public async Task CapitalOfFranceTopP()
+    [Fact]
+    public async Task CapitalOfFranceTopP()
+    {
+        var response = await CompletionCaller(new ChatRequest
         {
-            var response = await CompletionCaller(new ChatRequest
+            Model = "gpt-3.5-turbo",
+            TopP = 1,
+            Messages = new List<Message>
             {
-                Model = "gpt-3.5-turbo",
-                TopP = 1,
-                Messages = new List<Message>
+                new()
                 {
-                    new()
-                    {
-                        Role = "user",
-                        Content = "What is the capital of the France?",
-                    }
+                    Role = "user",
+                    Content = "What is the capital of the France?",
                 }
-            });
-            (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
-            response.Content!.Choices!.First().Message!.Content.Should().Contain("Paris");
-        }
+            }
+        });
+        (response.Error?.Content, response.StatusCode).Should().Be((null, HttpStatusCode.OK));
+        response.Content!.Choices!.First().Message!.Content.Should().Contain("Paris");
     }
 }
